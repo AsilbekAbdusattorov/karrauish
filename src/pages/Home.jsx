@@ -435,46 +435,50 @@ const Home = () => {
             <h2 className="text-white text-3xl sm:text-4xl font-bold text-center mb-10 sm:mb-20">
               Сентябр/октябр ойларида Кара усиш фоторепортажлар
             </h2>
-            <div className="flex justify-center">
-              {/* Swiper'ni markazga joylash uchun */}
+
+            <div className="flex justify-center relative">
+              {/* Custom prev va next tugmalar */}
+              <button className="absolute top-1/2 -left-10 transform -translate-y-1/2 w-12 h-12 bg-white/70 text-gray-800 rounded-full flex items-center justify-center z-10 hover:bg-white transition-all swiper-button-prev sm:block lg:block hidden">
+                ❮
+              </button>
+              <button className="absolute top-1/2 -right-10 transform -translate-y-1/2 w-12 h-12 bg-white/70 text-gray-800 rounded-full flex items-center justify-center z-10 hover:bg-white transition-all swiper-button-next sm:block lg:block hidden">
+                ❯
+              </button>
+
               <Swiper
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                modules={[Navigation, Pagination, A11y]}
                 spaceBetween={20}
-                slidesPerView={1}
+                slidesPerView={1} // Telefon ekranda faqat 1 ta slayd ko'rsatiladi
                 loop={true}
-                navigation
+                navigation={{
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                }}
                 pagination={{ clickable: true }}
-                scrollbar={{ draggable: true }}
-                className="w-full max-w-[860px]" // Moslashuvchan o'lcham
+                centeredSlides={true} // Markazdagi slaydni kattaroq qilish
+                breakpoints={{
+                  // 1024px va undan katta ekranlarda 3 ta slayd ko'rsatiladi
+                  1024: {
+                    slidesPerView: 3, // 3 ta slayd
+                    spaceBetween: 30, // Slaydlar orasidagi bo'shliq
+                  },
+                }}
+                className="w-full max-w-[860px]"
               >
-                <SwiperSlide>
-                  <img
-                    className="w-full h-[250px] sm:h-[350px] md:h-[420px] object-cover rounded-lg"
-                    src={swipper1}
-                    alt="img"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    className="w-full h-[250px] sm:h-[350px] md:h-[420px] object-cover rounded-lg"
-                    src={swipper2}
-                    alt="img"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    className="w-full h-[250px] sm:h-[350px] md:h-[420px] object-cover rounded-lg"
-                    src={swipper3}
-                    alt="img"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    className="w-full h-[250px] sm:h-[350px] md:h-[420px] object-cover rounded-lg mb-10 sm:mb-10"
-                    src={swipper4}
-                    alt="img"
-                  />
-                </SwiperSlide>
+                {[swipper1, swipper2, swipper3, swipper4].map(
+                  (image, index) => (
+                    <SwiperSlide
+                      key={index}
+                      className="scale-90 transition-all duration-300 ease-in-out swiper-slide"
+                    >
+                      <img
+                        className="w-full h-[250px] sm:h-[350px] md:h-[420px] object-cover rounded-lg mb-10"
+                        src={image}
+                        alt="img"
+                      />
+                    </SwiperSlide>
+                  )
+                )}
               </Swiper>
             </div>
           </div>
@@ -486,53 +490,61 @@ const Home = () => {
               Шарҳлар
             </h2>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center relative">
+              {/* Custom prev va next tugmalar */}
+              <button className="absolute top-1/2 -left-10 transform -translate-y-1/2 w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center z-10 hover:bg-gray-600 transition-all swiper-button-prev sm:hidden lg:block">
+                ❮
+              </button>
+              <button className="absolute top-1/2 -right-10 transform -translate-y-1/2 w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center z-10 hover:bg-gray-600 transition-all swiper-button-next sm:hidden lg:block">
+                ❯
+              </button>
+
               <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 spaceBetween={50}
-                slidesPerView={1}
+                slidesPerView={1} // Telefon ekranda faqat bitta slayd ko'rsatiladi
                 loop={true}
-                navigation
+                centeredSlides={true} // Markazdagi slaydni kattaroq qilish
+                autoplay={{
+                  delay: 3000, // 3 sekundda avtomatik ravishda o'tadi
+                  disableOnInteraction: false, // Foydalanuvchi interaksiya qilsa ham avtomatik o'tish davom etadi
+                }}
+                navigation={{
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                }}
                 pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}
-                className="w-full max-w-3xl" // Swiper markazda turishi uchun
+                breakpoints={{
+                  // Kompyuter ekranida 3 ta slayd ko'rsatish
+                  1024: {
+                    slidesPerView: 3, // Kompyuter ekranida 3 ta slayd
+                    spaceBetween: 30, // Slaydlar orasidagi bo'shliq
+                  },
+                }}
+                className="w-full max-w-3xl sm:max-w-full lg:max-w-3xl" // Swiper markazda turishi uchun
               >
-                <SwiperSlide className="flex justify-center">
-                  <iframe
-                    className="w-full max-w-lg h-[315px] mx-auto block"
-                    src="https://www.youtube.com/embed/yJN_St-UyqQ"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </SwiperSlide>
-                <SwiperSlide className="flex justify-center">
-                  <iframe
-                    className="w-full max-w-lg h-[315px] mx-auto block"
-                    src="https://www.youtube.com/embed/KOTZ9MS2Glo"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </SwiperSlide>
-                <SwiperSlide className="flex justify-center">
-                  <iframe
-                    className="w-full max-w-lg h-[315px] mx-auto block"
-                    src="https://www.youtube.com/embed/zlW55aAxLE0"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </SwiperSlide>
-                <SwiperSlide className="flex justify-center">
-                  <iframe
-                    className="w-full max-w-lg h-[315px] mx-auto block mb-10"
-                    src="https://www.youtube.com/embed/0jjlo91pxkM"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </SwiperSlide>
+                {/* Video Slaydlar */}
+                {[
+                  "https://www.youtube.com/embed/yJN_St-UyqQ",
+                  "https://www.youtube.com/embed/KOTZ9MS2Glo",
+                  "https://www.youtube.com/embed/zlW55aAxLE0",
+                  "https://www.youtube.com/embed/0jjlo91pxkM",
+                ].map((url, index) => (
+                  <SwiperSlide
+                    key={index}
+                    className={`flex justify-center transition-all duration-300 ease-in-out 
+                  ${index === 1 ? "scale-110 z-10" : "scale-90 opacity-70"}`}
+                  >
+                    <iframe
+                      className="w-full max-w-lg h-[315px] mx-auto block"
+                      src={url}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
