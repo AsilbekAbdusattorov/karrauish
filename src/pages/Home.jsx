@@ -485,70 +485,69 @@ const Home = () => {
         </section>
 
         <section className="py-10">
-          <div className="w-full max-w-7xl mx-auto px-5">
-            <h2 className="text-white text-4xl text-center font-bold mb-20">
-              Шарҳлар
-            </h2>
+      <div className="w-full max-w-7xl mx-auto px-5">
+        <h2 className="text-white text-4xl text-center font-bold mb-20">
+          Шарҳлар
+        </h2>
 
-            <div className="flex justify-center relative">
-              {/* Custom prev va next tugmalar */}
-              <button className="absolute top-1/2 -left-10 transform -translate-y-1/2 w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center z-10 hover:bg-gray-600 transition-all swiper-button-prev sm:hidden lg:block">
-                ❮
-              </button>
-              <button className="absolute top-1/2 -right-10 transform -translate-y-1/2 w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center z-10 hover:bg-gray-600 transition-all swiper-button-next sm:hidden lg:block">
-                ❯
-              </button>
+        <div className="flex justify-center relative">
+          {/* Custom prev va next tugmalar */}
+          <button className="absolute top-1/2 -left-10 transform -translate-y-1/2 w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center z-10 hover:bg-gray-600 transition-all my-custom-prev">
+            ❮
+          </button>
+          <button className="absolute top-1/2 -right-10 transform -translate-y-1/2 w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center z-10 hover:bg-gray-600 transition-all my-custom-next">
+            ❯
+          </button>
 
-              <Swiper
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
-                spaceBetween={50}
-                slidesPerView={1} // Telefon ekranda faqat bitta slayd ko'rsatiladi
-                loop={true}
-                centeredSlides={true} // Markazdagi slaydni kattaroq qilish
-                autoplay={{
-                  delay: 3000, // 3 sekundda avtomatik ravishda o'tadi
-                  disableOnInteraction: false, // Foydalanuvchi interaksiya qilsa ham avtomatik o'tish davom etadi
-                }}
-                navigation={{
-                  nextEl: ".swiper-button-next",
-                  prevEl: ".swiper-button-prev",
-                }}
-                pagination={{ clickable: true }}
-                scrollbar={{ draggable: true }}
-                breakpoints={{
-                  // Kompyuter ekranida 3 ta slayd ko'rsatish
-                  1024: {
-                    slidesPerView: 3, // Kompyuter ekranida 3 ta slayd
-                    spaceBetween: 30, // Slaydlar orasidagi bo'shliq
-                  },
-                }}
-                className="w-full max-w-3xl sm:max-w-full lg:max-w-3xl" // Swiper markazda turishi uchun
+          <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={50}
+            slidesPerView={1}
+            loop={true}
+            centeredSlides={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            navigation={{
+              nextEl: ".my-custom-next", // Custom class for next button
+              prevEl: ".my-custom-prev", // Custom class for prev button
+            }}
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            breakpoints={{
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+            }}
+            className="w-full max-w-3xl sm:max-w-full lg:max-w-3xl"
+          >
+            {/* Video Slaydlar */}
+            {[
+              "https://www.youtube.com/embed/yJN_St-UyqQ",
+              "https://www.youtube.com/embed/KOTZ9MS2Glo",
+              "https://www.youtube.com/embed/zlW55aAxLE0",
+              "https://www.youtube.com/embed/0jjlo91pxkM",
+            ].map((url, index) => (
+              <SwiperSlide
+                key={index}
+                className={`flex justify-center transition-all duration-300 ease-in-out
+                ${index === 1 ? "scale-110 z-10" : "scale-90 opacity-70"}`}
               >
-                {/* Video Slaydlar */}
-                {[
-                  "https://www.youtube.com/embed/yJN_St-UyqQ",
-                  "https://www.youtube.com/embed/KOTZ9MS2Glo",
-                  "https://www.youtube.com/embed/zlW55aAxLE0",
-                  "https://www.youtube.com/embed/0jjlo91pxkM",
-                ].map((url, index) => (
-                  <SwiperSlide
-                    key={index}
-                    className={`flex justify-center transition-all duration-300 ease-in-out 
-                  ${index === 1 ? "scale-110 z-10" : "scale-90 opacity-70"}`}
-                  >
-                    <iframe
-                      className="w-full max-w-lg h-[315px] mx-auto block"
-                      src={url}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          </div>
-        </section>
+                <iframe
+                  className="w-full max-w-lg h-[315px] mx-auto block"
+                  src={url}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </div>
+    </section>
       </main>
     </>
   );
